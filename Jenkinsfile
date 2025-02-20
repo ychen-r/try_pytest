@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python:3.9'
-            args '-v "C:\Users\ychen\Downloads\jenkins_home\workspace\try_pytest":/workspace'
+            args '-v "C:\\Users\\ychen\\Downloads\\jenkins_home\\workspace\\try_pytest":/workspace'
         }
     }
 
