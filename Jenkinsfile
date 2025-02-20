@@ -1,26 +1,28 @@
-// Jenkinsfile
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.9'
+            args '-v "C:\Users\ychen\Downloads\jenkins_home\workspace\try_pytest":/workspace'
+        }
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
+                // Checkout your code from version control
                 git 'https://github.com/ychen-r/try_pytest.git'
             }
         }
-        stage('Build Docker Image') {
+
+        stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'docker build -t pytest-image .'
-                }
+                sh 'pip install -r /workspace/requirements.txt'
             }
         }
-        stage('Run pytest') {
+
+        stage('Run Tests') {
             steps {
-                script {
-                    docker.image('pytest-image').inside {
-                        sh 'pytest'
-                    }
-                }
+                sh 'pytest /workspace/'
             }
         }
     }
