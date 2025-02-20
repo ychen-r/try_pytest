@@ -6,4 +6,4 @@ def test_logoff():
     print("world")
 
 def test_cal():
-    assert 2+2 == 4
+    assert 2+2 == 3
