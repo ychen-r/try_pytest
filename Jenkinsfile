@@ -1,9 +1,26 @@
+// Jenkinsfile
 pipeline {
     agent any
     stages {
-        stage("build") {
+        stage('Checkout Code') {
             steps {
-                echo 'building the applciation...'
+                git 'https://github.com/ychen-r/try_pytest.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t pytest-image .'
+                }
+            }
+        }
+        stage('Run pytest') {
+            steps {
+                script {
+                    docker.image('pytest-image').inside {
+                        sh 'pytest'
+                    }
+                }
             }
         }
     }
