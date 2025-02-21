@@ -5,4 +5,4 @@ def test_logoff():
     print("world")
 
 def test_cal():
-    assert 2+2 == 4
+    assert 9/0 == 4
